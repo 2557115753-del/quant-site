@@ -13,21 +13,25 @@ st.set_page_config(page_title="📈 A股多因子量化选股", page_icon="📈"
 
 # 配置
 MB_PRODUCT_URL = "https://mbd.pub/你的产品链接"
-PAYMENT_SERVER = "https://你的服务器.vercel.app"
+MB_KEY = os.environ.get("MB_KEY", "")
+MB_ORDER_API = "https://x.mianbaoduo.com/api/order-detail"
 PRICE = "¥0.9"
 
 def verify_payment(order_id):
-    if not order_id or not order_id.strip():
+    """调用面包多API直接验证"""
+    if not order_id or not order_id.strip() or not MB_KEY:
         return False, ""
     try:
-        url = f"{PAYMENT_SERVER}/api/verify?order_id={order_id.strip()}"
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(MB_ORDER_API,
+            headers={"x-token": MB_KEY},
+            params={"order_id": order_id.strip()},
+            timeout=10)
         data = resp.json()
-        if data.get("paid"):
-            return True, data.get("data", {}).get("token", "")
-        return False, ""
+        if data.get("state") == 1:
+            return True, order_id.strip()
     except:
-        return False, ""
+        pass
+    return False, ""
 
 # Session state
 if "verified" not in st.session_state:
