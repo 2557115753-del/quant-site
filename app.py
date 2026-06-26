@@ -4,10 +4,10 @@ import sys, os, json, time, requests, datetime
 import streamlit as st
 import pandas as pd
 
-# Add quant engine to path
-QUANT_PATH = r"C:\Users\25571\quant-model"
-sys.path.insert(0, QUANT_PATH)
-os.chdir(QUANT_PATH)
+# Quant engine is in the same directory
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, BASE_DIR)
+os.chdir(BASE_DIR)
 
 st.set_page_config(page_title="📈 A股多因子量化选股", page_icon="📈", layout="wide")
 
