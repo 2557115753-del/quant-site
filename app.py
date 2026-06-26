@@ -12,7 +12,7 @@ os.chdir(BASE_DIR)
 st.set_page_config(page_title="📈 A股多因子量化选股", page_icon="📈", layout="wide")
 
 # 配置
-MB_PRODUCT_URL = "https://mbd.pub/你的产品链接"
+MB_PRODUCT_URL = ""https://mbd.pub/o/bread/YZaTmpxsbA==""
 MB_KEY = os.environ.get("MB_KEY", "")
 MB_ORDER_API = "https://x.mianbaoduo.com/api/order-detail"
 PRICE = "¥0.9"
